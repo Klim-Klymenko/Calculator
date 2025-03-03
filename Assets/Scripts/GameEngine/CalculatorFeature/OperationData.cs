@@ -1,9 +1,9 @@
 ﻿namespace GameEngine.CalculatorFeature
 {
-    internal struct OperationData
+    public struct OperationData
     {
-        internal int Number1 { get; init; }
-        internal int Number2 { get; init; }
-        internal int Result { get; init; }
+        public int Number1 { get; init; }
+        public int Number2 { get; init; }
+        public int Result { get; init; }
     }
 }

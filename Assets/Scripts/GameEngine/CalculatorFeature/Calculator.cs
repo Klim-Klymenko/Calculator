@@ -1,8 +1,8 @@
 ﻿namespace GameEngine.CalculatorFeature
 {
-    internal sealed class Calculator : ICalculator
+    public sealed class Calculator
     {
-        private OperationData _currentOperation;
-        private OperationData[] _completedOperations;
+        public OperationData CurrentOperation { get; set; }
+        public OperationData[] CompletedOperations { get; set; }
     }
 }
