@@ -1,11 +1,8 @@
-﻿using UnityEngine;
-
-namespace GameEngine.CalculatorFeature
+﻿namespace GameEngine.CalculatorFeature
 {
     internal sealed class Calculator : ICalculator
     {
-        /*private OperationData _currentOperation;
-        private OperationData[] _completedOperations;*/
-        
+        private OperationData _currentOperation;
+        private OperationData[] _completedOperations;
     }
 }
