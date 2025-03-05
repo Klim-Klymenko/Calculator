@@ -1,3 +1,4 @@
 ﻿{
-  "name": "CalculatorWindowPresentation"
+  "name": "CalculatorWindowPresentation",
+  "references":[ "GUID:c1e3dd6fed614415b9e957e62d9db582", "GUID:dcbb25b0d1d74f03ae554ef8ce601927" ]
 }
