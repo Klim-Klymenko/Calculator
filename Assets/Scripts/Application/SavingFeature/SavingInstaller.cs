@@ -9,6 +9,9 @@ namespace Application.SavingFeature
         {
             BindClientAPI();
             BindClient();
+            BindEncryptor();
+            BindRepository();
+            BindSaveSystem();
         }
         
         private void BindClientAPI()
@@ -22,6 +25,21 @@ namespace Application.SavingFeature
             string titleId = PlayFabSettings.TitleId;
             string secretKey = PlayFabSettings.DeveloperSecretKey;
             Container.Bind<Client>().AsSingle().WithArguments(titleId, secretKey);
+        }
+        
+        private void BindEncryptor()
+        {
+            Container.Bind<AesEncryptor>().AsSingle();
+        }
+
+        private void BindRepository()
+        {
+            Container.Bind<IRepository>().To<Repository>().AsSingle();
+        }
+        
+        private void BindSaveSystem()
+        {
+            Container.Bind<SaveSystem>().AsSingle();
         }
     }
 }
