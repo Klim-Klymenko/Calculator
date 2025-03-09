@@ -1248,7 +1248,7 @@ MonoBehaviour:
   m_Content: {fileID: 5053302652930398249}
   m_Horizontal: 1
   m_Vertical: 1
-  m_MovementType: 1
+  m_MovementType: 2
   m_Elasticity: 0.1
   m_Inertia: 1
   m_DecelerationRate: 0.135
@@ -1368,8 +1368,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4167a6f421f4465b9bba4fd72230836d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _inputField: {fileID: 0}
-  _resultButton: {fileID: 0}
+  _inputField: {fileID: 3359301953056634417}
+  _resultButton: {fileID: 5106629467751261463}
+  _parentTransform: {fileID: 5053302652930398249}
 --- !u!1 &9052860456264920118
 GameObject:
   m_ObjectHideFlags: 0
@@ -1380,7 +1381,6 @@ GameObject:
   m_Component:
   - component: {fileID: 3905786207509006066}
   - component: {fileID: 5168863271532138847}
-  - component: {fileID: 8034834360431688211}
   - component: {fileID: 6227101596409515539}
   - component: {fileID: 3359301953056634417}
   m_Layer: 0
@@ -1418,20 +1418,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 9052860456264920118}
   m_CullTransparentMesh: 1
---- !u!114 &8034834360431688211
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9052860456264920118}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4167a6f421f4465b9bba4fd72230836d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _inputField: {fileID: 3359301953056634417}
-  _resultButton: {fileID: 5106629467751261463}
 --- !u!114 &6227101596409515539
 MonoBehaviour:
   m_ObjectHideFlags: 0

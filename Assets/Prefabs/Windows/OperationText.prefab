@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5293383979891059229}
   - component: {fileID: 2531022971364506950}
+  - component: {fileID: 5326206030881310217}
   - component: {fileID: 6925979463683341628}
   m_Layer: 0
   m_Name: OperationText
@@ -45,6 +46,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7263266527725581434}
   m_CullTransparentMesh: 1
+--- !u!114 &5326206030881310217
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7263266527725581434}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9d7834fb57eb4557a662a666deac7580, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _operationText: {fileID: 6925979463683341628}
 --- !u!114 &6925979463683341628
 MonoBehaviour:
   m_ObjectHideFlags: 0

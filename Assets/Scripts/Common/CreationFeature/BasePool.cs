@@ -7,12 +7,7 @@ namespace Common.CreationFeature
     {
         private readonly List<T> _objects = new();
         
-        private protected BasePool(int poolSize)
-        {
-            Reserve(poolSize);
-        }
-
-        private void Reserve(int poolSize)
+        private protected void Reserve(int poolSize)
         {
             for (int i = 0; i < poolSize; i++)
             {

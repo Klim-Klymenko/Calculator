@@ -1,7 +1,9 @@
 ﻿using System;
+using Common;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using Zenject;
 
 namespace UI.CalculatorWindow.View
 {
@@ -15,6 +17,17 @@ namespace UI.CalculatorWindow.View
         [SerializeField] 
         private Button _resultButton;
 
+        [SerializeField]
+        private Transform _parentTransform;
+        
+        private IPool<CalculatorWindowOperationView> _pool;
+        
+        [Inject]
+        public void Construct(IPool<CalculatorWindowOperationView> pool)
+        {
+            _pool = pool;
+        }
+        
         private void OnEnable()
         {
             _resultButton.onClick.AddListener(OnResultButtonClick);
@@ -30,14 +43,15 @@ namespace UI.CalculatorWindow.View
             OnResultButtonClicked?.Invoke(_inputField.text);
         }
 
-        public void CreateOperationView(string operation)
-        {
-            
-        }
-        
         public void ClearInputField()
         {
             _inputField.text = string.Empty;
+        }
+        
+        public void CreateOperationView()
+        {
+            CalculatorWindowOperationView view = _pool.Get();
+            view.transform.SetParent(_parentTransform);
         }
     }
 }

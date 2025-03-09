@@ -10,9 +10,10 @@ namespace Common.CreationFeature
     {
         private readonly GameCycleManager _gameCycleManager;
 
-        internal PlainPool(int poolSize,  GameCycleManager gameCycleManager) : base(poolSize)
+        internal PlainPool(int poolSize,  GameCycleManager gameCycleManager)
         {
             _gameCycleManager = gameCycleManager;
+            Reserve(poolSize);
         }
 
         private protected override T Instantiate()
