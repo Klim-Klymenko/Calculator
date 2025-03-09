@@ -9,10 +9,6 @@ namespace GameEngine.CalculatorFeature
     public sealed class Calculator
     {
         public event Action<OperationData> OnOperationSucceeded; 
-        public event Action<OperationData> OnOperationFailed; 
-        
-        public OperationData CurrentOperation { get; set; }
-        public List<OperationData> CompletedOperations { get; set; } = new();
         
         public void Calculate(IReadOnlyList<int> operands)
         {
@@ -24,20 +20,7 @@ namespace GameEngine.CalculatorFeature
                 Result = sum
             };
             
-            CompletedOperations.Add(completedOperation);
             OnOperationSucceeded?.Invoke(completedOperation);
-        }
-        
-        public void FailOperation(IReadOnlyList<int> operands)
-        {
-            OperationData completedOperation = new OperationData
-            {
-                Operands = operands,
-                Result = -1
-            };
-            
-            CompletedOperations.Add(completedOperation);
-            OnOperationFailed?.Invoke(completedOperation);
         }
     }
 }

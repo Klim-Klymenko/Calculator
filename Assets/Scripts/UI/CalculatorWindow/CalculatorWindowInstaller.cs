@@ -40,6 +40,7 @@ namespace UI.CalculatorWindow
         public override void InstallBindings()
         {
             BindPools();
+            BindFactory();
             
             CalculatorWindowView view = Container.InstantiatePrefabForComponent<CalculatorWindowView>(_viewPrefab, _viewParentTransform);
             BindPresenter(view);
@@ -53,6 +54,12 @@ namespace UI.CalculatorWindow
                 .AsSingle().WithArguments(_viewPoolSize, _operationViewPrefab, _operationViewContainer);
         }
 
+        private void BindFactory()
+        {
+            Container.Bind<Common.CreationFeature.IFactory<CalculatorWindowOperationPresenter, CalculatorWindowOperationView>>()
+                .To<PlainFactory<CalculatorWindowOperationPresenter, CalculatorWindowOperationView>>().AsSingle();
+        }
+        
         private void BindPresenter(CalculatorWindowView view)
         {
             Container.BindInterfacesTo<CalculatorWindowPresenter>().AsCached().WithArguments(view);

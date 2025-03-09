@@ -4,6 +4,7 @@ using System.Text.RegularExpressions;
 using Application.GameCycleFeature;
 using JetBrains.Annotations;
 using Common;
+using Common.CreationFeature;
 using GameEngine.CalculatorFeature;
 using UI.CalculatorWindow.View;
 
@@ -21,12 +22,15 @@ namespace UI.CalculatorWindow.Presentation
         private readonly CalculatorWindowView _view;
         private readonly Calculator _calculator;
         private readonly IPool<StringBuilder> _pool;
-
-        public CalculatorWindowPresenter(CalculatorWindowView view, Calculator calculator, IPool<StringBuilder> pool)
+        private readonly IFactory<CalculatorWindowOperationPresenter, CalculatorWindowOperationView> _factory;
+        
+        public CalculatorWindowPresenter(CalculatorWindowView view, Calculator calculator, IPool<StringBuilder> pool,
+            IFactory<CalculatorWindowOperationPresenter, CalculatorWindowOperationView> factory)
         {
             _view = view;
             _calculator = calculator;
             _pool = pool;
+            _factory = factory;
         }
 
         void IInitializable.OnInitialize()
@@ -44,7 +48,8 @@ namespace UI.CalculatorWindow.Presentation
             string trimmedInput = input.Replace(WhiteSpace, string.Empty);
             IReadOnlyList<int> operands = ParseOperands(trimmedInput);
             
-            
+            CalculatorWindowOperationView operationView = _view.CreateOperationView();
+            CalculatorWindowOperationPresenter presenter = _factory.Create(operationView);
             
             if (_regex.IsMatch(trimmedInput))
             {
@@ -54,7 +59,7 @@ namespace UI.CalculatorWindow.Presentation
                 return;
             }
             
-            _calculator.FailOperation(operands);
+            presenter.OnOperationFail(trimmedInput);
             //TODO: Call view's method to add an invalid operation + show the popup with popup shower
         }
 
@@ -85,10 +90,11 @@ namespace UI.CalculatorWindow.Presentation
         
         private void ProcessOperand(StringBuilder sb, List<int> operands)
         {
-            int operand = int.Parse(sb.ToString());
-            operands.Add(operand);
-                        
+            string operandString = sb.ToString();
             sb.Clear();
+            
+            if (int.TryParse(operandString, out int operand))
+                operands.Add(operand);
         }
     }
 }

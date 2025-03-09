@@ -7,6 +7,7 @@ namespace GameEngine.CalculatorFeature
         public override void InstallBindings()
         {
             Container.Bind<Calculator>().AsSingle();
+            Container.Bind<History>().AsSingle();
         }
     }
 }

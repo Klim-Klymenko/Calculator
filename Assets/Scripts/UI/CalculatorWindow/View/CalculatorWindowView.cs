@@ -48,10 +48,12 @@ namespace UI.CalculatorWindow.View
             _inputField.text = string.Empty;
         }
         
-        public void CreateOperationView()
+        public CalculatorWindowOperationView CreateOperationView()
         {
             CalculatorWindowOperationView view = _pool.Get();
             view.transform.SetParent(_parentTransform);
+            
+            return view;
         }
     }
 }
