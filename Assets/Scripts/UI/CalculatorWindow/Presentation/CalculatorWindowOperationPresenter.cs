@@ -19,8 +19,8 @@ namespace UI.CalculatorWindow.Presentation
         private readonly History _history;
         private readonly IPool<StringBuilder> _pool;
 
-        internal CalculatorWindowOperationPresenter(CalculatorWindowOperationView view, Calculator calculator,
-            History history, IPool<StringBuilder> pool)
+        internal CalculatorWindowOperationPresenter(CalculatorWindowOperationView view, 
+            Calculator calculator, History history, IPool<StringBuilder> pool)
         {
             _view = view;
             _calculator = calculator;
@@ -31,13 +31,13 @@ namespace UI.CalculatorWindow.Presentation
         void IInitializable.OnInitialize()
         {
             _calculator.OnOperationSucceeded += OnOperationSucceed;
-            _view.OnOperationTextSet += _history.AddOperation;
+            _view.OnOperationTextSet += AddOperation;
         }
 
         void IFinishable.OnFinish()
         {
             _calculator.OnOperationSucceeded -= OnOperationSucceed;
-            _view.OnOperationTextSet -= _history.AddOperation;
+            _view.OnOperationTextSet -= AddOperation;
         }
 
         private void OnOperationSucceed(OperationData operationData)
@@ -49,6 +49,11 @@ namespace UI.CalculatorWindow.Presentation
             sb.Append(operationData.Result);
             
             OnViewTextSet(sb);
+        }
+        
+        private void AddOperation(string operation)
+        {
+            _history.AddOperation(operation);
         }
         
         public void OnOperationFail(string input)

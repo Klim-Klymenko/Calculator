@@ -43,9 +43,14 @@ namespace UI.CalculatorWindow.View
             OnResultButtonClicked?.Invoke(_inputField.text);
         }
 
+        public void SetInputField(string value)
+        {
+            _inputField.text = value;
+        }
+        
         public void ClearInputField()
         {
-            _inputField.text = string.Empty;
+            SetInputField(string.Empty);
         }
         
         public CalculatorWindowOperationView CreateOperationView()

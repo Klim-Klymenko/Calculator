@@ -21,20 +21,27 @@ namespace UI.CalculatorWindow.Presentation
 
         private readonly CalculatorWindowView _view;
         private readonly Calculator _calculator;
+        private readonly History _history;
         private readonly IPool<StringBuilder> _pool;
         private readonly IFactory<CalculatorWindowOperationPresenter, CalculatorWindowOperationView> _factory;
         
-        public CalculatorWindowPresenter(CalculatorWindowView view, Calculator calculator, IPool<StringBuilder> pool,
-            IFactory<CalculatorWindowOperationPresenter, CalculatorWindowOperationView> factory)
+        public CalculatorWindowPresenter(CalculatorWindowView view, Calculator calculator, History history, 
+            IPool<StringBuilder> pool, IFactory<CalculatorWindowOperationPresenter, CalculatorWindowOperationView> factory)
         {
             _view = view;
             _calculator = calculator;
+            _history = history;
             _pool = pool;
             _factory = factory;
         }
 
         void IInitializable.OnInitialize()
         {
+            string uncompletedOperation = _history.UncompletedOperation;
+            
+            if (!string.IsNullOrEmpty(uncompletedOperation))
+                _view.SetInputField(uncompletedOperation);
+            
             _view.OnResultButtonClicked += OnCalculationInput;
         }
 
