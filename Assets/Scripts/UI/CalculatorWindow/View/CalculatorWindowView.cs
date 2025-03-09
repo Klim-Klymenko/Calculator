@@ -43,6 +43,16 @@ namespace UI.CalculatorWindow.View
             OnResultButtonClicked?.Invoke(_inputField.text);
         }
 
+        public void Show()
+        {
+            gameObject.SetActive(true);
+        }
+
+        public void Hide()
+        {
+            gameObject.SetActive(false);
+        }
+        
         public void SetInputField(string value)
         {
             _inputField.text = value;

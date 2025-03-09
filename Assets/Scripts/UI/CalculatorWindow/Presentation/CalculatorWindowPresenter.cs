@@ -6,12 +6,13 @@ using JetBrains.Annotations;
 using Common;
 using Common.CreationFeature;
 using GameEngine.CalculatorFeature;
+using UI.CalculatorErrorPopup;
 using UI.CalculatorWindow.View;
 
 namespace UI.CalculatorWindow.Presentation
 {
     [UsedImplicitly]
-    public sealed class CalculatorWindowPresenter : IInitializable, IFinishable
+    public sealed class CalculatorWindowPresenter : IInitializable, IStartable, IFinishable
     {
         private const char Plus = '+';
         private const string WhiteSpace = " ";
@@ -22,27 +23,34 @@ namespace UI.CalculatorWindow.Presentation
         private readonly CalculatorWindowView _view;
         private readonly Calculator _calculator;
         private readonly History _history;
+        private readonly CalculatorErrorPopupShower _errorPopupShower;
         private readonly IPool<StringBuilder> _pool;
         private readonly IFactory<CalculatorWindowOperationPresenter, CalculatorWindowOperationView> _factory;
         
         public CalculatorWindowPresenter(CalculatorWindowView view, Calculator calculator, History history, 
-            IPool<StringBuilder> pool, IFactory<CalculatorWindowOperationPresenter, CalculatorWindowOperationView> factory)
+            CalculatorErrorPopupShower errorPopupShower, IPool<StringBuilder> pool,
+            IFactory<CalculatorWindowOperationPresenter, CalculatorWindowOperationView> factory)
         {
             _view = view;
             _calculator = calculator;
             _history = history;
+            _errorPopupShower = errorPopupShower;
             _pool = pool;
             _factory = factory;
+            _errorPopupShower = errorPopupShower;
         }
 
         void IInitializable.OnInitialize()
+        {
+            _view.OnResultButtonClicked += OnCalculationInput;
+        }
+
+        void IStartable.OnStart()
         {
             string uncompletedOperation = _history.UncompletedOperation;
             
             if (!string.IsNullOrEmpty(uncompletedOperation))
                 _view.SetInputField(uncompletedOperation);
-            
-            _view.OnResultButtonClicked += OnCalculationInput;
         }
 
         void IFinishable.OnFinish()
@@ -67,7 +75,7 @@ namespace UI.CalculatorWindow.Presentation
             }
             
             presenter.OnOperationFail(trimmedInput);
-            //TODO: Call view's method to add an invalid operation + show the popup with popup shower
+            _errorPopupShower.Show(_view.Hide, _view.Show);
         }
 
         private IReadOnlyList<int> ParseOperands(string input)
@@ -94,7 +102,7 @@ namespace UI.CalculatorWindow.Presentation
             _pool.Put(sb);
             return operands;
         }
-        
+
         private void ProcessOperand(StringBuilder sb, List<int> operands)
         {
             string operandString = sb.ToString();

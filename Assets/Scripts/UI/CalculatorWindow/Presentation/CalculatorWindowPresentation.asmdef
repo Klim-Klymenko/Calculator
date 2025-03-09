@@ -1,4 +1,4 @@
 ﻿{
   "name": "CalculatorWindowPresentation",
-  "references":[ "GUID:c1e3dd6fed614415b9e957e62d9db582", "GUID:dcbb25b0d1d74f03ae554ef8ce601927", "GUID:9a4f5feb469a46d8aa0e209292aeeb3c", "GUID:b82265650c6c4d4ca97f082eca0336c8" ]
+  "references":[ "GUID:c1e3dd6fed614415b9e957e62d9db582", "GUID:dcbb25b0d1d74f03ae554ef8ce601927", "GUID:9a4f5feb469a46d8aa0e209292aeeb3c", "GUID:b82265650c6c4d4ca97f082eca0336c8", "GUID:09bb615fba774757a66d995576a816bc" ]
 }

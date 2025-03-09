@@ -1,3 +1,4 @@
 ﻿{
-  "name": "CalculatorErrorPopupPresentation"
+  "name": "CalculatorErrorPopupPresentation",
+  "references":[ "GUID:8e2719622d9b40a09fbb93b71b1b3720" ]
 }

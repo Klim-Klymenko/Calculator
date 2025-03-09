@@ -46,4 +46,26 @@ namespace Common.CreationFeature
             return _diContainer.InstantiatePrefabForComponent<TR>(_prefab, _parent, args);
         }
     }
+    
+    [UsedImplicitly]
+    public sealed class ObjectFactory<TR, TArg1, TArg2> : IFactory<TR, TArg1, TArg2>
+        where TR : Object
+    {
+        private readonly DiContainer _diContainer;
+        private readonly TR _prefab;
+        private readonly Transform _parent;
+
+        public ObjectFactory(DiContainer diContainer, TR prefab, Transform parent = null)
+        {
+            _diContainer = diContainer;
+            _prefab = prefab;
+            _parent = parent;
+        }
+
+        TR IFactory<TR, TArg1, TArg2>.Create(TArg1 arg1, TArg2 arg2)
+        {
+            object[] args = { arg1, arg2 };
+            return _diContainer.InstantiatePrefabForComponent<TR>(_prefab, _parent, args);
+        }
+    }
 }
