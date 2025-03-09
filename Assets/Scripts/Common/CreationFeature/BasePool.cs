@@ -5,7 +5,7 @@ namespace Common.CreationFeature
     public abstract class BasePool<T> : IPool<T>
     where T : class
     {
-        private readonly List<T> _objects;
+        private readonly List<T> _objects = new();
         
         private protected BasePool(int poolSize)
         {

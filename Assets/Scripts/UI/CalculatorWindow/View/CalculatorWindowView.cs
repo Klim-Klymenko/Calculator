@@ -32,7 +32,12 @@ namespace UI.CalculatorWindow.View
 
         public void CreateOperationView(string operation)
         {
-            Debug.Log($"View created with operation: {operation}");
+            
+        }
+        
+        public void ClearInputField()
+        {
+            _inputField.text = string.Empty;
         }
     }
 }
