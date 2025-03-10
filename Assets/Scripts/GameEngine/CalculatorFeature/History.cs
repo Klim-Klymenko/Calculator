@@ -8,7 +8,7 @@ namespace GameEngine.CalculatorFeature
     {
         public string UncompletedOperation { get; set; }
         private readonly List<string> _completedOperations = new();
-
+        
         public void AddOperation(string operation)
         {
             _completedOperations.Add(operation);

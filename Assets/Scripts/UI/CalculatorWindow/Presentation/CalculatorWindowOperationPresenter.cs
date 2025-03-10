@@ -1,4 +1,5 @@
-﻿using System.Text;
+﻿using System;
+using System.Text;
 using Application.GameCycleFeature;
 using Common;
 using GameEngine.CalculatorFeature;
@@ -8,13 +9,14 @@ using UI.CalculatorWindow.View;
 namespace UI.CalculatorWindow.Presentation
 {
     [UsedImplicitly]
-    public sealed class CalculatorWindowOperationPresenter : IInitializable, IFinishable
+    public sealed class CalculatorWindowOperationPresenter : IInitializable, IDisposable
     {
         private const char Plus = '+';
         private const char Equal = '=';
         private const string Error = "ERROR";
         
-        private readonly CalculatorWindowOperationView _view;
+        private CalculatorWindowOperationView _view;
+        
         private readonly Calculator _calculator;
         private readonly History _history;
         private readonly IPool<StringBuilder> _pool;
@@ -28,13 +30,18 @@ namespace UI.CalculatorWindow.Presentation
             _pool = pool;
         }
 
-        void IInitializable.OnInitialize()
+        public void SetView(CalculatorWindowOperationView view)
+        {
+            _view = view;
+        }
+
+        public void OnInitialize()
         {
             _calculator.OnOperationSucceeded += OnOperationSucceed;
             _view.OnOperationTextSet += AddOperation;
         }
 
-        void IFinishable.OnFinish()
+        public void Dispose()
         {
             _calculator.OnOperationSucceeded -= OnOperationSucceed;
             _view.OnOperationTextSet -= AddOperation;
@@ -65,6 +72,11 @@ namespace UI.CalculatorWindow.Presentation
             sb.Append(Error);
             
             OnViewTextSet(sb);
+        }
+
+        public void OnPastOperation(string operation)
+        {
+            _view.SetOperationText(operation);
         }
         
         private void OnViewTextSet(StringBuilder sb)

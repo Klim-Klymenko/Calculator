@@ -1,10 +1,12 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace Application.Domain
 {
-    internal struct CalculatorData
+    [Serializable]
+    public struct CalculatorData
     {
-        internal string UncompletedOperation { get; init; }
-        internal IReadOnlyList<string> CompletedOperations { get; init; }
+        public string UncompletedOperation { get; init; }
+        public string[] CompletedOperations { get; init; }
     }
 }

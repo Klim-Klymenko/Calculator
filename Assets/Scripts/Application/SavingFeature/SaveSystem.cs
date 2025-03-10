@@ -1,4 +1,5 @@
-﻿using Cysharp.Threading.Tasks;
+﻿using System;
+using Cysharp.Threading.Tasks;
 using JetBrains.Annotations;
 
 namespace Application.SavingFeature
@@ -6,6 +7,9 @@ namespace Application.SavingFeature
     [UsedImplicitly]
     public sealed class SaveSystem
     {
+        public event Action OnSaved;
+        public event Action OnLoaded;
+        
         private readonly IRepository _repository;
         private readonly ISaveLoader _saveLoader;
 
@@ -15,16 +19,20 @@ namespace Application.SavingFeature
             _saveLoader = saveLoader;
         }
 
-        public async UniTask Save()
+        internal async UniTask Save()
         {
             _saveLoader.Save();
             await _repository.SaveState();
+            
+            OnSaved?.Invoke();
         }
 
-        public async UniTask Load()
+        internal async UniTask Load()
         {
             await _repository.LoadState();
             _saveLoader.Load();
+            
+            OnLoaded?.Invoke();
         }
     }
 }

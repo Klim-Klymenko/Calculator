@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using Application.SavingFeature;
 using GameEngine.CalculatorFeature;
 using JetBrains.Annotations;
@@ -20,17 +21,19 @@ namespace Application.Domain
             return new CalculatorData
             {
                 UncompletedOperation = _history.UncompletedOperation,
-                CompletedOperations = _history.GetOperations()
+                CompletedOperations = _history.GetOperations().ToArray()
             };
         }
 
         private protected override void ApplyData(CalculatorData data)
         {
             IReadOnlyList<string> completedOperations = data.CompletedOperations;
-            
-            for (int i = 0; i < completedOperations.Count; i++)
+            if (completedOperations != null)
             {
-                _history.AddOperation(completedOperations[i]);
+                for (int i = 0; i < completedOperations.Count; i++)
+                {
+                    _history.AddOperation(completedOperations[i]);
+                }
             }
             
             _history.UncompletedOperation = data.UncompletedOperation;

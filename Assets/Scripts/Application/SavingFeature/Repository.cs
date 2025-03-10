@@ -24,7 +24,7 @@ namespace Application.SavingFeature
         void IRepository.SetData<T>(T data)
         {
             string serializedData = JsonConvert.SerializeObject(data);
-
+         
             string key = typeof(T).Name;
             _state[key] = serializedData;
         }
@@ -32,7 +32,7 @@ namespace Application.SavingFeature
         bool IRepository.TryGetData<T>(out T data)
         {
             string key = typeof(T).Name;
-          
+            
             if (_state.TryGetValue(key, out string serializedData))
             {
                 data = JsonConvert.DeserializeObject<T>(serializedData);
@@ -47,7 +47,7 @@ namespace Application.SavingFeature
         {
             string serializedState = JsonConvert.SerializeObject(_state);
             string encryptedState = _encryptor.Encrypt(serializedState);
-            
+       
             await File.WriteAllTextAsync(_filePath, encryptedState);
         }
 
@@ -59,23 +59,10 @@ namespace Application.SavingFeature
                 string decryptedData = _encryptor.Decrypt(encryptedState);
                 
                 _state = JsonConvert.DeserializeObject<Dictionary<string, string>>(decryptedData);
+                return;
             }
             
             _state = new Dictionary<string, string>();
         }
-
-/*#if UNITY_EDITOR
-        public async UniTask ResetState()
-        {
-            File.Delete(_filePath);
-
-            List<string> keys = new()
-            {
-                "CalculatorData"
-            };
-            
-            await _client.TryRemoveClientData(keys);
-        }
-#endif    */    
     }
 }

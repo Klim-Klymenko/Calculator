@@ -2,6 +2,7 @@
 using Common;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.UI;
 using Zenject;
 
@@ -10,6 +11,11 @@ namespace UI.CalculatorWindow.View
     public sealed class CalculatorWindowView : MonoBehaviour
     {
         public event Action<string> OnResultButtonClicked;
+        public event UnityAction<string> OnInputFieldChanged
+        {
+            add => _inputField.onValueChanged.AddListener(value);
+            remove => _inputField.onValueChanged.RemoveListener(value);
+        } 
         
         [SerializeField] 
         private TMP_InputField _inputField;
@@ -66,7 +72,10 @@ namespace UI.CalculatorWindow.View
         public CalculatorWindowOperationView CreateOperationView()
         {
             CalculatorWindowOperationView view = _pool.Get();
-            view.transform.SetParent(_parentTransform);
+            Transform viewTransform = view.transform;
+            
+            viewTransform.SetParent(_parentTransform);
+            viewTransform.SetSiblingIndex(0);
             
             return view;
         }

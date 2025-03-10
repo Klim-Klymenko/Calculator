@@ -9,6 +9,7 @@ namespace Application.SavingFeature
             BindEncryptor();
             BindRepository();
             BindSaveSystem();
+            BindSaveSystemController();
         }
         
         private void BindEncryptor()
@@ -23,7 +24,12 @@ namespace Application.SavingFeature
         
         private void BindSaveSystem()
         {
-            Container.Bind<SaveSystem>().AsSingle().NonLazy();
+            Container.Bind<SaveSystem>().AsSingle();
+        }
+        
+        private void BindSaveSystemController()
+        {
+            Container.BindInterfacesTo<SaveSystemController>().AsCached();
         }
     }
 }
