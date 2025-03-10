@@ -1,5 +1,4 @@
-﻿using PlayFab;
-using Zenject;
+﻿using Zenject;
 
 namespace Application.SavingFeature
 {
@@ -7,24 +6,9 @@ namespace Application.SavingFeature
     {
         public override void InstallBindings()
         {
-            BindClientAPI();
-            BindClient();
             BindEncryptor();
             BindRepository();
             BindSaveSystem();
-        }
-        
-        private void BindClientAPI()
-        {
-            PlayFabClientInstanceAPI clientAPI = new(PlayFabSettings.staticSettings);
-            Container.Bind<PlayFabClientInstanceAPI>().FromInstance(clientAPI).AsSingle();
-        }
-        
-        private void BindClient()
-        {
-            string titleId = PlayFabSettings.TitleId;
-            string secretKey = PlayFabSettings.DeveloperSecretKey;
-            Container.Bind<Client>().AsSingle().WithArguments(titleId, secretKey);
         }
         
         private void BindEncryptor()
@@ -39,7 +23,7 @@ namespace Application.SavingFeature
         
         private void BindSaveSystem()
         {
-            Container.Bind<SaveSystem>().AsSingle();
+            Container.Bind<SaveSystem>().AsSingle().NonLazy();
         }
     }
 }

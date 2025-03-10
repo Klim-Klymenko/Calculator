@@ -1,4 +1,4 @@
 ﻿{
   "name": "SavingFeature",
-  "references":[ "GUID:0d8beb7f090555447a6cf5ce9e54dbb4", "GUID:0da6d172d18a54e4389d0dce1e1ffdf2", "GUID:f51ebe6a0ceec4240a699833d6309b23" ]
+  "references":[ "GUID:0d8beb7f090555447a6cf5ce9e54dbb4", "GUID:0da6d172d18a54e4389d0dce1e1ffdf2", "GUID:f51ebe6a0ceec4240a699833d6309b23", "GUID:b82265650c6c4d4ca97f082eca0336c8" ]
 }
